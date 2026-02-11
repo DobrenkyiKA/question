@@ -1,3 +1,16 @@
 spring:
   application:
-    name: question
+    name: question-service
+
+  datasource:
+    url: jdbc:postgresql://localhost:5433/question_db
+    username: question_user
+    password: question_pass
+
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    open-in-view: false
+
+server:
+  port: 8082

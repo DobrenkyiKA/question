@@ -1,0 +1,15 @@
+services:
+  question-postgres:
+    image: postgres:16
+    container_name: question-postgres
+    ports:
+      - "5433:5432"
+    environment:
+      POSTGRES_DB: question_db
+      POSTGRES_USER: question_user
+      POSTGRES_PASSWORD: question_pass
+    volumes:
+      - question_pg_data:/var/lib/postgresql/data
+
+volumes:
+  question_pg_data:
