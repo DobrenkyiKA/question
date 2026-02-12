@@ -4,12 +4,12 @@ import jakarta.persistence.*
 import java.util.UUID
 
 @Entity
-@Table(name = "questions")
-class QuestionEntity(
+@Table(name = "topics")
+class TopicEntity(
     @Id
     @GeneratedValue
     val id: UUID? = null,
 
-    @Column(nullable = false)
-    val text: String = ""
+    @Column(nullable = false, unique = true)
+    val name: String = ""
 )
