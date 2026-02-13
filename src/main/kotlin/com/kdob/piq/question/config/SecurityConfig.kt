@@ -17,8 +17,11 @@ class SecurityConfig {
                     .requestMatchers("/health").permitAll()
                     .anyRequest().authenticated()
             }
-            .formLogin {}
+            .oauth2ResourceServer {
+                it.jwt {
+                    it.jwtAuthenticationConverter(JwtAuthConverter())
+                }
+            }
         return http.build()
-
     }
 }

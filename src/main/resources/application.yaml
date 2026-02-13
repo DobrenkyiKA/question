@@ -16,6 +16,9 @@ spring:
     enabled: true
     change-log: classpath:db/changelog/db.changelog-master.yaml
 
+rsa:
+  public-key: classpath:keys/public.pem
+
 server:
   port: 8082
 
