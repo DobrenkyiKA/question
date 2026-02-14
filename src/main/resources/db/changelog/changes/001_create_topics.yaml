@@ -1,7 +1,7 @@
 databaseChangeLog:
   - changeSet:
       id: 001
-      author: Dobrenkii Konstantin
+      author: Konstantin Dobrenkii
       changes:
         - createTable:
             tableName: topics
@@ -16,21 +16,20 @@ databaseChangeLog:
                   type: VARCHAR(255)
                   constraints:
                     nullable: false
-                    unique: true
-  - changeSet:
-      id: 002
-      author: Dobrenkii Konstantin
-      changes:
-        - createTable:
-            tableName: questions
-            columns:
               - column:
-                  name: id
+                  name: parent_id
                   type: UUID
                   constraints:
-                    primaryKey: true
-              - column:
-                  name: text
-                  type: TEXT
-                  constraints:
-                    nullable: false
+                    nullable: true
+
+        - addForeignKeyConstraint:
+            baseTableName: topics
+            baseColumnNames: parent_id
+            referencedTableName: topics
+            referencedColumnNames: id
+            constraintName: fk_topics_parent
+
+        - addUniqueConstraint:
+            tableName: topics
+            columnNames: name, parent_id
+            constraintName: uk_topics_name_parent

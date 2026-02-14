@@ -1,0 +1,13 @@
+databaseChangeLog:
+  - changeSet:
+      id: 002
+      author: Konstantin Dobrenkii
+      changes:
+        - createTable:
+            tableName: learning_items
+            columns:
+              - column:
+                  name: id
+                  type: UUID
+                  constraints:
+                    primaryKey: true

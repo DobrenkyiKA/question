@@ -10,6 +10,9 @@ class TopicEntity(
     @GeneratedValue
     val id: UUID? = null,
 
-    @Column(nullable = false, unique = true)
-    val name: String = ""
+    @Column(nullable = false)
+    val name: String,
+
+    @Column(name = "parent_id")
+    val parentId: UUID?
 )

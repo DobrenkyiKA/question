@@ -1,4 +1,10 @@
 databaseChangeLog:
   - include:
-      file: changes/001_create_questions.yaml
+      file: changes/001_create_topics.yaml
+      relativeToChangelogFile: true
+  - include:
+      file: changes/002_create_learning_items.yaml
+      relativeToChangelogFile: true
+  - include:
+      file: changes/003_create_learning_item_topics.yaml
       relativeToChangelogFile: true
