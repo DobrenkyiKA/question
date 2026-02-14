@@ -15,6 +15,12 @@ class TopicController(
     @GetMapping
     fun getTopics(): List<TopicResponse> =
         topicService.getAllTopics().map {
-            TopicResponse(it.id!!, it.name, it.parentId)
+            TopicResponse(
+                id = it.id!!,
+                key = it.key,
+                name = it.name,
+                parentId = it.parentId,
+                path = it.path
+            )
         }
 }

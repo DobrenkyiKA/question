@@ -4,6 +4,8 @@ import java.util.UUID
 
 data class Topic(
     val id: UUID?,
+    val key: String,
     val name: String,
-    val parentId: UUID?
+    val parentId: UUID?,
+    val path: String
 )
