@@ -15,6 +15,7 @@ class SecurityConfig {
             .authorizeHttpRequests {
                 it
                     .requestMatchers("/health").permitAll()
+                    .requestMatchers("/admin/**").hasRole("ADMIN")
                     .anyRequest().authenticated()
             }
             .oauth2ResourceServer {

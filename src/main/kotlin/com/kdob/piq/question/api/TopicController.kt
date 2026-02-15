@@ -1,6 +1,6 @@
 package com.kdob.piq.question.api
 
-import com.kdob.piq.question.api.dto.TopicResponse
+import com.kdob.piq.question.api.dto.topic.TopicResponse
 import com.kdob.piq.question.application.TopicService
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RequestMapping

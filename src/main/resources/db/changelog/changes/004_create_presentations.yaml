@@ -1,0 +1,44 @@
+databaseChangeLog:
+  - changeSet:
+      id: 004
+      author: Konstantin Dobrenkii
+      changes:
+        - createTable:
+            tableName: presentations
+            columns:
+              - column:
+                  name: id
+                  type: UUID
+                  constraints:
+                    primaryKey: true
+
+              - column:
+                  name: learning_item_id
+                  type: UUID
+                  constraints:
+                    nullable: false
+
+              - column:
+                  name: format
+                  type: VARCHAR(20)
+                  constraints:
+                    nullable: false
+
+              - column:
+                  name: prompt
+                  type: TEXT
+                  constraints:
+                    nullable: false
+
+        - addForeignKeyConstraint:
+            baseTableName: presentations
+            baseColumnNames: learning_item_id
+            referencedTableName: learning_items
+            referencedColumnNames: id
+            constraintName: fk_presentations_item
+            onDelete: CASCADE
+
+        - addUniqueConstraint:
+            tableName: presentations
+            columnNames: learning_item_id, format
+            constraintName: uk_item_format

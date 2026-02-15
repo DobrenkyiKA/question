@@ -1,4 +1,4 @@
-package com.kdob.piq.question.domain
+package com.kdob.piq.question.domain.learning
 
 import java.util.UUID
 
