@@ -4,8 +4,8 @@ import com.kdob.piq.question.api.dto.CreateLearningItemRequest
 import com.kdob.piq.question.domain.learning.LearningItem
 import com.kdob.piq.question.domain.learning.LearningItemCommandRepository
 import com.kdob.piq.question.persistence.topic.JpaTopicQueryRepository
-import jakarta.transaction.Transactional
 import org.springframework.stereotype.Service
+import org.springframework.transaction.annotation.Transactional
 
 @Service
 class AdminLearningItemService(
