@@ -39,39 +39,71 @@ class DataInitializer(
         val root = TopicNode("it", "Information Technology", listOf(
             TopicNode("software-dev", "Software Development", listOf(
                 TopicNode("backend", "Backend Development", listOf(
-                    TopicNode("java", "Java", listOf(
-                        TopicNode("java-core", "Java Core", listOf(
-                            TopicNode("collections", "Collections Framework", emptyList(), javaCollectionsQuestions),
-                            TopicNode("concurrency", "Concurrency", emptyList(), javaConcurrencyQuestions)
+                    TopicNode("backend-languages", "Programming Languages", listOf(
+                        TopicNode("jvm", "JVM Ecosystem", listOf(
+                            TopicNode("java", "Java", listOf(
+                                TopicNode("java-core", "Java Core", listOf(
+                                    TopicNode("collections", "Collections Framework", listOf(
+                                        TopicNode("list", "Lists", listOf(
+                                            TopicNode("array-list", "ArrayList", emptyList(), javaCollectionsQuestions)
+                                        ))
+                                    )),
+                                    TopicNode("concurrency", "Concurrency", emptyList(), javaConcurrencyQuestions)
+                                ))
+                            )),
+                            TopicNode("kotlin", "Kotlin", listOf(
+                                TopicNode("kotlin-core", "Kotlin Core", listOf(
+                                    TopicNode("null-safety", "Null Safety", emptyList(), kotlinNullSafetyQuestions)
+                                ))
+                            ))
+                        )),
+                        TopicNode("sql", "Structured Query Language", listOf(
+                            TopicNode("sql-core", "SQL Core", listOf(
+                                TopicNode("queries", "SQL Queries", emptyList(), sqlQuestions)
+                            ))
                         ))
                     )),
-                    TopicNode("kotlin", "Kotlin", listOf(
-                        TopicNode("kotlin-core", "Kotlin Core", listOf(
-                            TopicNode("null-safety", "Null Safety", emptyList(), kotlinNullSafetyQuestions)
+                    TopicNode("backend-frameworks", "Backend Frameworks", listOf(
+                        TopicNode("spring", "Spring Framework", listOf(
+                            TopicNode("spring-boot", "Spring Boot", listOf(
+                                TopicNode("sb-core", "Spring Boot Core", listOf(
+                                    TopicNode("annotations", "Spring Boot Annotations", emptyList(), springBootQuestions)
+                                ))
+                            ))
                         ))
                     ))
                 )),
                 TopicNode("frontend", "Frontend Development", listOf(
-                    TopicNode("react", "React", listOf(
-                        TopicNode("react-core", "React Core", listOf(
-                            TopicNode("hooks", "React Hooks", emptyList(), reactHooksQuestions)
-                        ))
-                    )),
-                    TopicNode("nextjs", "Next.js", listOf(
-                        TopicNode("nextjs-core", "Next.js Core", listOf(
-                            TopicNode("routing", "Next.js Routing", emptyList(), nextjsQuestions)
-                        ))
-                    )),
-                    TopicNode("typescript", "TypeScript", listOf(
-                        TopicNode("ts-core", "TypeScript Core", listOf(
-                            TopicNode("advanced-types", "Advanced Types", emptyList(), typescriptQuestions)
+                    TopicNode("web", "Web Technologies", listOf(
+                        TopicNode("frontend-frameworks", "Frameworks & Libraries", listOf(
+                            TopicNode("react", "React", listOf(
+                                TopicNode("react-core", "React Core", listOf(
+                                    TopicNode("hooks", "React Hooks", emptyList(), reactHooksQuestions)
+                                ))
+                            )),
+                            TopicNode("nextjs", "Next.js", listOf(
+                                TopicNode("nextjs-core", "Next.js Core", listOf(
+                                    TopicNode("routing", "Next.js Routing", emptyList(), nextjsQuestions)
+                                ))
+                            ))
+                        )),
+                        TopicNode("frontend-languages", "Languages", listOf(
+                            TopicNode("typescript", "TypeScript", listOf(
+                                TopicNode("ts-core", "TypeScript Core", listOf(
+                                    TopicNode("advanced-types", "Advanced Types", emptyList(), typescriptQuestions)
+                                ))
+                            ))
                         ))
                     ))
                 )),
                 TopicNode("architecture", "System Architecture", listOf(
-                    TopicNode("microservices", "Microservices", listOf(
-                        TopicNode("ms-patterns", "MS Patterns", listOf(
-                            TopicNode("dist-tx", "Distributed Transactions", emptyList(), microservicesQuestions)
+                    TopicNode("cloud-native", "Cloud Native", listOf(
+                        TopicNode("microservices", "Microservices", listOf(
+                            TopicNode("patterns", "Design Patterns", listOf(
+                                TopicNode("ms-patterns", "Microservices Patterns", listOf(
+                                    TopicNode("dist-tx", "Distributed Transactions", emptyList(), microservicesQuestions)
+                                ))
+                            ))
                         ))
                     ))
                 ))
@@ -200,6 +232,82 @@ class DataInitializer(
             AnswerNode("Using tryLock() with a timeout can help prevent deadlocks.", true),
             AnswerNode("Avoiding nested locks can reduce the risk of deadlocks.", true),
             AnswerNode("Deadlocks are automatically resolved by the JVM after a few seconds.", false)
+        ))
+    )
+
+    private val springBootQuestions = listOf(
+        QuestionNode("What is the purpose of @SpringBootApplication annotation?", listOf(
+            AnswerNode("It's a convenience annotation that combines @Configuration, @EnableAutoConfiguration, and @ComponentScan.", true),
+            AnswerNode("It marks the main class of a Spring Boot application.", true),
+            AnswerNode("It enables component scanning in the package where the class is located.", true),
+            AnswerNode("It enables Spring Boot's auto-configuration mechanism.", true),
+            AnswerNode("It replaces the need for an external web server.", false)
+        )),
+        QuestionNode("How can you change the default port of a Spring Boot application?", listOf(
+            AnswerNode("By setting server.port in application.properties or application.yml.", true),
+            AnswerNode("By passing --server.port=8081 as a command-line argument.", true),
+            AnswerNode("By setting the SERVER_PORT environment variable.", true),
+            AnswerNode("By using a custom WebServerFactoryCustomizer bean.", true),
+            AnswerNode("By changing the port in the pom.xml file.", false)
+        )),
+        QuestionNode("What is Spring Boot Starter?", listOf(
+            AnswerNode("A set of convenient dependency descriptors you can include in your application.", true),
+            AnswerNode("It simplifies the Maven/Gradle configuration by providing a curated set of dependencies.", true),
+            AnswerNode("Examples include spring-boot-starter-web and spring-boot-starter-data-jpa.", true),
+            AnswerNode("It automatically handles versioning for compatible libraries.", true),
+            AnswerNode("It's a GUI tool to start new Spring projects.", false)
+        )),
+        QuestionNode("Explain the difference between @RestController and @Controller.", listOf(
+            AnswerNode("@RestController is a specialized version of @Controller.", true),
+            AnswerNode("@RestController is a combination of @Controller and @ResponseBody.", true),
+            AnswerNode("Methods in @RestController return data directly (JSON/XML) instead of a view name.", true),
+            AnswerNode("@Controller is typically used for traditional MVC applications with JSP/Thymeleaf.", true),
+            AnswerNode("@RestController cannot be used with @RequestMapping.", false)
+        )),
+        QuestionNode("What is the purpose of Spring Boot Actuator?", listOf(
+            AnswerNode("To provide production-ready features like health checks and metrics.", true),
+            AnswerNode("It allows monitoring and managing the application via HTTP or JMX endpoints.", true),
+            AnswerNode("Endpoints like /health, /metrics, and /env are provided by default.", true),
+            AnswerNode("It helps in troubleshooting by providing insights into the running application.", true),
+            AnswerNode("It is used to activate Spring profiles at runtime.", false)
+        ))
+    )
+
+    private val sqlQuestions = listOf(
+        QuestionNode("What is the difference between INNER JOIN and LEFT JOIN?", listOf(
+            AnswerNode("INNER JOIN returns only matching rows from both tables.", true),
+            AnswerNode("LEFT JOIN returns all rows from the left table and matching rows from the right table.", true),
+            AnswerNode("If there's no match, LEFT JOIN returns NULL for the right table's columns.", true),
+            AnswerNode("INNER JOIN can result in a smaller result set than LEFT JOIN.", true),
+            AnswerNode("They always return the same number of rows if all foreign keys are valid.", false)
+        )),
+        QuestionNode("What are Database Indexes and why are they used?", listOf(
+            AnswerNode("They are data structures that improve the speed of data retrieval operations.", true),
+            AnswerNode("They work similarly to an index in a book, allowing quick lookups.", true),
+            AnswerNode("Indexes can be created on one or more columns.", true),
+            AnswerNode("While they speed up reads, they can slow down write operations (INSERT, UPDATE).", true),
+            AnswerNode("They are used to encrypt sensitive data in the database.", false)
+        )),
+        QuestionNode("Explain the difference between WHERE and HAVING clauses.", listOf(
+            AnswerNode("WHERE is used to filter rows before grouping.", true),
+            AnswerNode("HAVING is used to filter groups after the GROUP BY clause has been applied.", true),
+            AnswerNode("Aggregate functions (SUM, AVG) can be used in HAVING but not typically in WHERE.", true),
+            AnswerNode("WHERE can be used without GROUP BY, but HAVING is usually used with it.", true),
+            AnswerNode("There is no difference; they are interchangeable.", false)
+        )),
+        QuestionNode("What are ACID properties in a database?", listOf(
+            AnswerNode("Atomicity, Consistency, Isolation, Durability.", true),
+            AnswerNode("Atomicity: All operations in a transaction succeed or none do.", true),
+            AnswerNode("Consistency: A transaction takes the database from one valid state to another.", true),
+            AnswerNode("Isolation: Concurrent transactions do not interfere with each other.", true),
+            AnswerNode("Durability: Once a transaction is committed, it remains even after a system failure.", true)
+        )),
+        QuestionNode("What is a Primary Key?", listOf(
+            AnswerNode("A column or group of columns that uniquely identifies each row in a table.", true),
+            AnswerNode("It must contain unique values and cannot contain NULLs.", true),
+            AnswerNode("A table can have only one primary key.", true),
+            AnswerNode("It is often used as a target for foreign keys in other tables.", true),
+            AnswerNode("It can be changed frequently without any impact on data integrity.", false)
         ))
     )
 
