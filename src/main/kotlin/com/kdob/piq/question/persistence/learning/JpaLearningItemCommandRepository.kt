@@ -13,7 +13,7 @@ class JpaLearningItemCommandRepository(
 ) : LearningItemCommandRepository {
 
     override fun save(item: LearningItem): LearningItem =
-        repo.save(item.toEntity()).toDomain()
+        repo.saveAndFlush(item.toEntity()).toDomain()
 
 
     override fun attachToTopics(itemId: UUID, topicIds: List<UUID>) {

@@ -14,5 +14,5 @@ class JpaAnswerCommandRepository(
         answer: Answer,
         presentationId: UUID
     ): Answer =
-        repo.save(answer.toEntity(presentationId)).toDomain()
+        repo.saveAndFlush(answer.toEntity(presentationId)).toDomain()
 }

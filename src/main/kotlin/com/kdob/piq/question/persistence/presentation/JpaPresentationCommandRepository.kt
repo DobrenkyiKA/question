@@ -10,5 +10,5 @@ class JpaPresentationCommandRepository(
 ) : PresentationCommandRepository {
 
     override fun save(presentation: Presentation): Presentation =
-        repo.save(presentation.toEntity()).toDomain(presentation.answers)
+        repo.saveAndFlush(presentation.toEntity()).toDomain(presentation.answers)
 }
