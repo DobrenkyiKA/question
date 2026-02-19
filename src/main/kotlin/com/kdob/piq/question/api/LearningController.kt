@@ -22,22 +22,22 @@ class LearningController(
     private val service: LearningService
 ) {
 
-    @GetMapping("/topics/{path}/items")
+    @GetMapping("/topics")
     fun getItems(
-        @PathVariable path: String,
+        @RequestParam topicPath: String,
         @RequestParam format: PresentationFormat,
         @RequestParam state: LearningState = LearningState.ANY,
         @RequestParam limit: Int = 10
     ): List<PresentationResponse> =
         service.getPresentations(
-            topicPath = "/$path",
+            topicPath = topicPath,
             format = format,
             state = state,
             limit = limit,
             userId = currentUserId()
         ).map { it.toResponse() }
 
-    @PostMapping("/items/{id}/learned")
+    @PostMapping("/{id}/learned")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     fun markLearned(@PathVariable id: UUID) {
         service.markLearned(currentUserId(), id)
