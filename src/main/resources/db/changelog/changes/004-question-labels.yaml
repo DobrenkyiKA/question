@@ -1,0 +1,39 @@
+databaseChangeLog:
+  - changeSet:
+      id: 004-question-labels
+      author: backend
+      changes:
+        - createTable:
+            tableName: question_labels
+            columns:
+              - column:
+                  name: question_id
+                  type: uuid
+                  constraints:
+                    nullable: false
+              - column:
+                  name: label
+                  type: varchar(100)
+                  constraints:
+                    nullable: false
+
+        - addPrimaryKey:
+            tableName: question_labels
+            columnNames: question_id, label
+
+        - addForeignKeyConstraint:
+            baseTableName: question_labels
+            baseColumnNames: question_id
+            referencedTableName: questions
+            referencedColumnNames: id
+            onDelete: CASCADE
+            constraintName: fk_question_labels_question
+
+# SQL:
+# CREATE TABLE question_labels (
+#   question_id UUID NOT NULL,
+#   label VARCHAR(100) NOT NULL,
+#   PRIMARY KEY (question_id, label),
+#   CONSTRAINT fk_question_labels_question
+#     FOREIGN KEY (question_id) REFERENCES questions(id) ON DELETE CASCADE
+# );

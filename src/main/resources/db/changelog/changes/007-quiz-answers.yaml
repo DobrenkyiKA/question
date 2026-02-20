@@ -1,0 +1,51 @@
+databaseChangeLog:
+  - changeSet:
+      id: 007-quiz-answers
+      author: backend
+      changes:
+        - createTable:
+            tableName: quiz_answers
+            columns:
+              - column:
+                  name: id
+                  type: uuid
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: quiz_content_id
+                  type: uuid
+                  constraints:
+                    nullable: false
+              - column:
+                  name: text
+                  type: text
+                  constraints:
+                    nullable: false
+              - column:
+                  name: correct
+                  type: boolean
+                  constraints:
+                    nullable: false
+              - column:
+                  name: explanation
+                  type: text
+
+        - addForeignKeyConstraint:
+            baseTableName: quiz_answers
+            baseColumnNames: quiz_content_id
+            referencedTableName: quiz_content
+            referencedColumnNames: id
+            onDelete: CASCADE
+            constraintName: fk_quiz_answers_content
+
+# SQL:
+# CREATE TABLE quiz_answers (
+#   id UUID PRIMARY KEY,
+#   quiz_content_id UUID NOT NULL,
+#   text TEXT NOT NULL,
+#   correct BOOLEAN NOT NULL,
+#   explanation TEXT,
+#   CONSTRAINT fk_quiz_answers_content
+#     FOREIGN KEY (quiz_content_id) REFERENCES quiz_content(id) ON DELETE CASCADE
+# );

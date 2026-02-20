@@ -1,0 +1,54 @@
+databaseChangeLog:
+  - changeSet:
+      id: 009-indexes
+      author: backend
+      changes:
+        - createIndex:
+            indexName: idx_questions_key
+            tableName: questions
+            columns:
+              - column:
+                  name: key
+
+        - createIndex:
+            indexName: idx_questions_difficulty
+            tableName: questions
+            columns:
+              - column:
+                  name: difficulty
+
+        - createIndex:
+            indexName: idx_topics_key
+            tableName: topics
+            columns:
+              - column:
+                  name: key
+
+        - createIndex:
+            indexName: idx_question_labels_label
+            tableName: question_labels
+            columns:
+              - column:
+                  name: label
+
+        - createIndex:
+            indexName: idx_question_topics_topic
+            tableName: question_topics
+            columns:
+              - column:
+                  name: topic_id
+
+        - createIndex:
+            indexName: idx_quiz_content_question
+            tableName: quiz_content
+            columns:
+              - column:
+                  name: question_id
+
+# SQL:
+# CREATE INDEX idx_questions_key ON questions(key);
+# CREATE INDEX idx_questions_difficulty ON questions(difficulty);
+# CREATE INDEX idx_topics_key ON topics(key);
+# CREATE INDEX idx_question_labels_label ON question_labels(label);
+# CREATE INDEX idx_question_topics_topic ON question_topics(topic_id);
+# CREATE INDEX idx_quiz_content_question ON quiz_content(question_id);
