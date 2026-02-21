@@ -1,7 +1,7 @@
 databaseChangeLog:
   - changeSet:
       id: 002-create-questions
-      author: backend
+      author: Konstantin Dobrenkii
       changes:
         - createTable:
             tableName: questions
@@ -12,28 +12,39 @@ databaseChangeLog:
                   constraints:
                     primaryKey: true
                     nullable: false
+
               - column:
                   name: key
                   type: varchar(100)
                   constraints:
                     nullable: false
                     unique: true
+
               - column:
                   name: prompt
                   type: text
                   constraints:
                     nullable: false
+
               - column:
                   name: difficulty
                   type: varchar(20)
                   constraints:
                     nullable: false
+
+              - column:
+                  name: topic_id
+                  type: uuid
+                  constraints:
+                    nullable: false
+
               - column:
                   name: created_at
                   type: timestamptz
                   defaultValueComputed: now()
                   constraints:
                     nullable: false
+
               - column:
                   name: updated_at
                   type: timestamptz
@@ -41,12 +52,23 @@ databaseChangeLog:
                   constraints:
                     nullable: false
 
+        - addForeignKeyConstraint:
+            baseTableName: questions
+            baseColumnNames: topic_id
+            referencedTableName: topics
+            referencedColumnNames: id
+            onDelete: RESTRICT
+            constraintName: fk_questions_topic
+
 # SQL:
 # CREATE TABLE questions (
 #   id UUID PRIMARY KEY,
 #   key VARCHAR(100) NOT NULL UNIQUE,
 #   prompt TEXT NOT NULL,
 #   difficulty VARCHAR(20) NOT NULL,
+#   topic_id UUID NOT NULL,
 #   created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
-#   updated_at TIMESTAMPTZ NOT NULL DEFAULT now()
+#   updated_at TIMESTAMPTZ NOT NULL DEFAULT now(),
+#   CONSTRAINT fk_questions_topic
+#     FOREIGN KEY (topic_id) REFERENCES topics(id)
 # );

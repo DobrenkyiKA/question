@@ -13,7 +13,7 @@ data class QuestionResponse(
     val prompt: String,
     val difficulty: Difficulty,
     val labels: Set<String>,
-    val topics: Set<String>,
+    val topic: String,
     val interview: InterviewContentResponse?,
     val quiz: QuizContentResponse?
 )

@@ -1,40 +1,36 @@
-
 databaseChangeLog:
   - changeSet:
-      id: 005-interview-content
-      author: backend
+      id: 006-quiz-content
+      author: Konstantin Dobrenkii
       changes:
         - createTable:
-            tableName: interview_content
+            tableName: quiz_content
             columns:
               - column:
-                  name: question_id
+                  name: id
                   type: uuid
                   constraints:
                     primaryKey: true
                     nullable: false
               - column:
-                  name: short_answer
-                  type: text
+                  name: question_id
+                  type: uuid
                   constraints:
                     nullable: false
-              - column:
-                  name: long_answer
-                  type: text
+                    unique: true
 
         - addForeignKeyConstraint:
-            baseTableName: interview_content
+            baseTableName: quiz_content
             baseColumnNames: question_id
             referencedTableName: questions
             referencedColumnNames: id
             onDelete: CASCADE
-            constraintName: fk_interview_content_question
+            constraintName: fk_quiz_content_question
 
 # SQL:
-# CREATE TABLE interview_content (
-#   question_id UUID PRIMARY KEY,
-#   short_answer TEXT NOT NULL,
-#   long_answer TEXT,
-#   CONSTRAINT fk_interview_content_question
+# CREATE TABLE quiz_content (
+#   id UUID PRIMARY KEY,
+#   question_id UUID NOT NULL UNIQUE,
+#   CONSTRAINT fk_quiz_content_question
 #     FOREIGN KEY (question_id) REFERENCES questions(id) ON DELETE CASCADE
 # );

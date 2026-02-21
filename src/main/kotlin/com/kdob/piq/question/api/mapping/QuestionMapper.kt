@@ -17,8 +17,8 @@ object QuestionMapper {
             key = entity.key,
             prompt = entity.prompt,
             difficulty = entity.difficulty,
-            labels = entity.labels,
-            topics = entity.topics.map { it.key }.toSet(),
+            labels = entity.labels.toSet(),
+            topic = entity.topic.key,
             interview = entity.interviewContent?.let { toInterviewResponse(it) },
             quiz = entity.quizContent?.let { toQuizResponse(it) }
         )

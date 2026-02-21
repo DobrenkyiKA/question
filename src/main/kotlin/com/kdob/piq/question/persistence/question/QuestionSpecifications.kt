@@ -2,16 +2,11 @@ package com.kdob.piq.question.persistence
 
 import com.kdob.piq.question.domain.quesiton.Difficulty
 import com.kdob.piq.question.persistence.topic.TopicEntity
-import org.springframework.data.jpa.domain.Specification
 import jakarta.persistence.criteria.JoinType
+import org.springframework.data.jpa.domain.Specification
+import java.util.*
 
 object QuestionSpecifications {
-
-    fun hasAnyTopic(topicKeys: Set<String>): Specification<QuestionEntity> =
-        Specification { root, _, cb ->
-            val topicsJoin = root.join<QuestionEntity, TopicEntity>("topics", JoinType.INNER)
-            topicsJoin.get<String>("key").`in`(topicKeys)
-        }
 
     fun hasDifficulty(difficulties: Set<Difficulty>): Specification<QuestionEntity> =
         Specification { root, _, cb ->
@@ -32,5 +27,10 @@ object QuestionSpecifications {
     fun supportsQuiz(): Specification<QuestionEntity> =
         Specification { root, _, cb ->
             cb.isNotNull(root.get<Any>("quizContent"))
+        }
+
+    fun hasAnyTopicId(topicIds: Set<UUID>): Specification<QuestionEntity> =
+        Specification { root, _, cb ->
+            root.get<TopicEntity>("topic").get<UUID>("id").`in`(topicIds)
         }
 }

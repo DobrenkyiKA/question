@@ -1,7 +1,7 @@
 databaseChangeLog:
   - changeSet:
       id: 007-quiz-answers
-      author: backend
+      author: Konstantin Dobrenkii
       changes:
         - createTable:
             tableName: quiz_answers

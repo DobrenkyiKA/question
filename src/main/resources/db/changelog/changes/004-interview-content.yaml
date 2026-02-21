@@ -1,39 +1,40 @@
+
 databaseChangeLog:
   - changeSet:
-      id: 004-question-labels
-      author: backend
+      id: 005-interview-content
+      author: Konstantin Dobrenkii
       changes:
         - createTable:
-            tableName: question_labels
+            tableName: interview_content
             columns:
               - column:
                   name: question_id
                   type: uuid
                   constraints:
+                    primaryKey: true
                     nullable: false
               - column:
-                  name: label
-                  type: varchar(100)
+                  name: short_answer
+                  type: text
                   constraints:
                     nullable: false
-
-        - addPrimaryKey:
-            tableName: question_labels
-            columnNames: question_id, label
+              - column:
+                  name: long_answer
+                  type: text
 
         - addForeignKeyConstraint:
-            baseTableName: question_labels
+            baseTableName: interview_content
             baseColumnNames: question_id
             referencedTableName: questions
             referencedColumnNames: id
             onDelete: CASCADE
-            constraintName: fk_question_labels_question
+            constraintName: fk_interview_content_question
 
 # SQL:
-# CREATE TABLE question_labels (
-#   question_id UUID NOT NULL,
-#   label VARCHAR(100) NOT NULL,
-#   PRIMARY KEY (question_id, label),
-#   CONSTRAINT fk_question_labels_question
+# CREATE TABLE interview_content (
+#   question_id UUID PRIMARY KEY,
+#   short_answer TEXT NOT NULL,
+#   long_answer TEXT,
+#   CONSTRAINT fk_interview_content_question
 #     FOREIGN KEY (question_id) REFERENCES questions(id) ON DELETE CASCADE
 # );

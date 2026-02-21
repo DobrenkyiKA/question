@@ -1,7 +1,6 @@
 package com.kdob.piq.question.api.question
 
 import com.kdob.piq.question.api.dto.question.QuestionResponse
-import com.kdob.piq.question.api.mapping.QuestionMapper
 import com.kdob.piq.question.application.question.QuestionQueryService
 import com.kdob.piq.question.domain.quesiton.Difficulty
 import org.springframework.data.domain.Page
@@ -25,15 +24,12 @@ class QuestionController(
         @RequestParam(required = false) formats: Set<String>?,
         pageable: Pageable
     ): Page<QuestionResponse> {
-
-        val page = service.findQuestions(
+        return service.findQuestions(
             topicKeys = topicKeys ?: emptySet(),
             difficulties = difficulty ?: emptySet(),
             labels = labels ?: emptySet(),
             formats = formats ?: emptySet(),
             pageable = pageable
         )
-
-        return page.map { QuestionMapper.toResponse(it) }
     }
 }
