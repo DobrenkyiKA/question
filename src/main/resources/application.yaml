@@ -27,3 +27,6 @@ logging:
     liquibase: INFO
     liquibase.executor: INFO
     liquibase.changelog: INFO
+    org:
+      springframework:
+        security: DEBUG # or trace
