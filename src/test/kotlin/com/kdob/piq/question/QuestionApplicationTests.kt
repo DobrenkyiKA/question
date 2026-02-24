@@ -1,6 +1,6 @@
 package com.kdob.piq.question
 
-import com.kdob.piq.question.application.question.QuestionQueryService
+import com.kdob.piq.question.application.service.QuestionQueryService
 import org.junit.jupiter.api.Assertions.assertFalse
 import org.junit.jupiter.api.Assertions.assertNotNull
 import org.junit.jupiter.api.Test
