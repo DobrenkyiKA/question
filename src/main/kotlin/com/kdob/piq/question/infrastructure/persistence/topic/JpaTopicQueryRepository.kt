@@ -1,7 +1,8 @@
-package com.kdob.piq.question.infrastructure.persistence.topic.topic
+package com.kdob.piq.question.infrastructure.persistence.topic
 
 import com.kdob.piq.question.domain.topic.Topic
 import com.kdob.piq.question.domain.topic.TopicQueryRepository
+import com.kdob.piq.question.infrastructure.persistence.topic.SpringDataTopicRepository
 import org.springframework.stereotype.Repository
 
 @Repository

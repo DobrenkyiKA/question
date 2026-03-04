@@ -1,4 +1,4 @@
-package com.kdob.piq.question.infrastructure.persistence.topic.topic
+package com.kdob.piq.question.infrastructure.persistence.topic
 
 import jakarta.persistence.Column
 import jakarta.persistence.Entity

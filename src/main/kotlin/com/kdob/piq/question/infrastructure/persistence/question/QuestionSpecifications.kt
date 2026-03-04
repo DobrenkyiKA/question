@@ -1,7 +1,7 @@
 package com.kdob.piq.question.infrastructure.persistence.question
 
 import com.kdob.piq.question.domain.question.Difficulty
-import com.kdob.piq.question.infrastructure.persistence.topic.topic.TopicEntity
+import com.kdob.piq.question.infrastructure.persistence.topic.TopicEntity
 import jakarta.persistence.criteria.JoinType
 import org.springframework.data.jpa.domain.Specification
 import java.util.*

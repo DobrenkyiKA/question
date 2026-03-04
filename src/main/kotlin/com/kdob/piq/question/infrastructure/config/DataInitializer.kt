@@ -2,8 +2,8 @@ package com.kdob.piq.question.infrastructure.config
 
 import com.kdob.piq.question.domain.question.Difficulty
 import com.kdob.piq.question.infrastructure.persistence.question.*
-import com.kdob.piq.question.infrastructure.persistence.topic.topic.SpringDataTopicRepository
-import com.kdob.piq.question.infrastructure.persistence.topic.topic.TopicEntity
+import com.kdob.piq.question.infrastructure.persistence.topic.SpringDataTopicRepository
+import com.kdob.piq.question.infrastructure.persistence.topic.TopicEntity
 import org.slf4j.LoggerFactory
 import org.springframework.boot.CommandLineRunner
 import org.springframework.context.annotation.Profile

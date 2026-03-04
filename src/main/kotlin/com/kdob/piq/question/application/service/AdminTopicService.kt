@@ -1,8 +1,8 @@
 package com.kdob.piq.question.application.service
 
 import com.kdob.piq.question.domain.topic.Topic
-import com.kdob.piq.question.infrastructure.persistence.topic.topic.JpaTopicCommandRepository
-import com.kdob.piq.question.infrastructure.persistence.topic.topic.JpaTopicQueryRepository
+import com.kdob.piq.question.infrastructure.persistence.topic.JpaTopicCommandRepository
+import com.kdob.piq.question.infrastructure.persistence.topic.JpaTopicQueryRepository
 import com.kdob.piq.question.infrastructure.web.dto.topic.CreateTopicRequest
 import jakarta.transaction.Transactional
 import org.springframework.stereotype.Service
