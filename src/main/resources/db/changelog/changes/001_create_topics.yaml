@@ -3,37 +3,45 @@ databaseChangeLog:
       id: 001-create-topics
       author: Konstantin Dobrenkii
       changes:
+        - createSequence:
+            sequenceName: topics_id_sequence
+            startValue: 1
+            incrementBy: 50
+            cacheSize: 50
         - createTable:
             tableName: topics
             columns:
               - column:
                   name: id
-                  type: uuid
-                  constraints:
-                    primaryKey: true
-                    nullable: false
+                  type: BIGINT
               - column:
                   name: key
-                  type: varchar(100)
+                  type: VARCHAR(100)
                   constraints:
                     nullable: false
-                    unique: true
               - column:
                   name: name
-                  type: varchar(255)
+                  type: VARCHAR(255)
                   constraints:
                     nullable: false
               - column:
                   name: parent_id
-                  type: uuid
+                  type: BIGINT
                   constraints:
                     nullable: true
               - column:
                   name: path
-                  type: varchar(500)
+                  type: VARCHAR(500)
                   constraints:
                     nullable: false
-
+        - addPrimaryKey:
+            tableName: topics
+            columnNames: id
+            constraintName: pk_topics_id
+        - addUniqueConstraint:
+            tableName: topics
+            columnNames: key
+            constraintName: uq_topics_key
         - addForeignKeyConstraint:
             baseTableName: topics
             baseColumnNames: parent_id

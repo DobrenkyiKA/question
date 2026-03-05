@@ -1,15 +1,12 @@
 package com.kdob.piq.question.infrastructure.persistence.question
 
+import com.kdob.piq.question.infrastructure.persistence.BaseEntity
 import jakarta.persistence.*
 import java.util.*
 
 @Entity
 @Table(name = "quiz_answers")
 class QuizAnswerEntity(
-
-    @Id
-    @GeneratedValue
-    val id: UUID? = null,
 
     @ManyToOne
     @JoinColumn(name = "quiz_content_id", nullable = false)
@@ -23,4 +20,13 @@ class QuizAnswerEntity(
 
     @Column
     val explanation: String?
-)
+) : BaseEntity() {
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "quiz_answers_sequence")
+    @SequenceGenerator(name = "quiz_answers_sequence", sequenceName = "quiz_answers_id_sequence", allocationSize = 50)
+    var id: Long? = null
+
+    override fun getIdValue(): Long? {
+        return id
+    }
+}

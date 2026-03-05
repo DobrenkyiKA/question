@@ -1,6 +1,7 @@
 package com.kdob.piq.question.infrastructure.persistence.question
 
 import com.kdob.piq.question.domain.question.Difficulty
+import com.kdob.piq.question.infrastructure.persistence.BaseEntity
 import com.kdob.piq.question.infrastructure.persistence.topic.TopicEntity
 import jakarta.persistence.*
 import java.util.*
@@ -8,10 +9,6 @@ import java.util.*
 @Entity(name = "Question")
 @Table(name = "questions")
 class QuestionEntity(
-
-    @Id
-    @GeneratedValue
-    val id: UUID? = null,
 
     @Column(nullable = false, unique = true)
     val key: String,
@@ -40,4 +37,12 @@ class QuestionEntity(
 
     @OneToOne(mappedBy = "question", cascade = [CascadeType.ALL], fetch = FetchType.LAZY)
     var quizContent: QuizContentEntity? = null
-)
+) : BaseEntity() {
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "questions_sequence")
+    @SequenceGenerator(name = "questions_sequence", sequenceName = "questions_id_sequence", allocationSize = 50)
+    var id: Long? = null
+    override fun getIdValue(): Long? {
+        return id
+    }
+}

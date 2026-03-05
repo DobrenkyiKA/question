@@ -5,5 +5,5 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor
 import java.util.UUID
 
 interface QuestionRepository :
-    JpaRepository<QuestionEntity, UUID>,
+    JpaRepository<QuestionEntity, Long>,
     JpaSpecificationExecutor<QuestionEntity>

@@ -7,7 +7,6 @@ import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 import org.springframework.data.jpa.domain.Specification
 import org.springframework.stereotype.Repository
-import java.util.*
 
 @Repository
 class JpaQuestionQueryRepository(
@@ -15,7 +14,7 @@ class JpaQuestionQueryRepository(
 ) : QuestionQueryRepository {
 
     override fun findByCriteria(
-        topicIds: Set<UUID>,
+        topicKeys: Set<String>,
         difficulties: Set<Difficulty>,
         labels: Set<String>,
         formats: Set<String>,
@@ -23,8 +22,8 @@ class JpaQuestionQueryRepository(
     ): Page<Question> {
         var spec: Specification<QuestionEntity> = Specification { _, _, _ -> null }
 
-        if (topicIds.isNotEmpty()) {
-            spec = spec.and(QuestionSpecifications.hasAnyTopicId(topicIds))
+        if (topicKeys.isNotEmpty()) {
+            spec = spec.and(QuestionSpecifications.hasAnyTopicKey(topicKeys))
         }
 
         if (difficulties.isNotEmpty()) {

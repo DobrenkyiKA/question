@@ -3,51 +3,50 @@ databaseChangeLog:
       id: 002-create-questions
       author: Konstantin Dobrenkii
       changes:
+        - createSequence:
+            sequenceName: questions_id_sequence
+            startValue: 1
+            incrementBy: 50
+            cacheSize: 50
         - createTable:
             tableName: questions
             columns:
               - column:
                   name: id
-                  type: uuid
+                  type: BIGINT
                   constraints:
                     primaryKey: true
                     nullable: false
-
               - column:
                   name: key
-                  type: varchar(100)
+                  type: VARCHAR(100)
                   constraints:
                     nullable: false
                     unique: true
-
               - column:
                   name: prompt
                   type: text
                   constraints:
                     nullable: false
-
               - column:
                   name: difficulty
-                  type: varchar(20)
+                  type: VARCHAR(20)
                   constraints:
                     nullable: false
-
               - column:
                   name: topic_id
-                  type: uuid
+                  type: BIGINT
                   constraints:
                     nullable: false
-
               - column:
                   name: created_at
-                  type: timestamptz
+                  type: TIMESTAMPTZ
                   defaultValueComputed: now()
                   constraints:
                     nullable: false
-
               - column:
                   name: updated_at
-                  type: timestamptz
+                  type: TIMESTAMPTZ
                   defaultValueComputed: now()
                   constraints:
                     nullable: false

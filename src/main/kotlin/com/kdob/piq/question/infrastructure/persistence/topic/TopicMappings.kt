@@ -13,7 +13,6 @@ fun TopicEntity.toDomain(): Topic =
 
 fun Topic.toEntity(): TopicEntity =
     TopicEntity(
-        id = id,
         key = key,
         name = name,
         parentId = parentId,

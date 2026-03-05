@@ -3,11 +3,11 @@ package com.kdob.piq.question.domain.question
 import java.util.UUID
 
 data class Question(
-    val id: UUID? = null,
+    val id: Long? = null,
     val key: String,
     val prompt: String,
     val difficulty: Difficulty,
-    val topicId: UUID,
+    val topicId: Long,
     val topicKey: String,
     val labels: Set<String> = emptySet(),
     val interviewContent: InterviewContent? = null,

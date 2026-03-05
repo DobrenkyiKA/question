@@ -166,7 +166,6 @@ class DataInitializer(
             if (typeIndex == 0 || typeIndex == 2) {
                 // Interview content
                 question.interviewContent = InterviewContentEntity(
-                    questionId = UUID.randomUUID(),
                     question = question,
                     shortAnswer = realQ.shortAnswer,
                     longAnswer = realQ.longAnswer

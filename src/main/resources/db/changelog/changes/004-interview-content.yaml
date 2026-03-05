@@ -4,27 +4,32 @@ databaseChangeLog:
       id: 005-interview-content
       author: Konstantin Dobrenkii
       changes:
+        - createSequence:
+            sequenceName: interview_content_id_sequence
+            startValue: 1
+            incrementBy: 50
+            cacheSize: 50
         - createTable:
             tableName: interview_content
             columns:
               - column:
-                  name: question_id
-                  type: uuid
+                  name: id
+                  type: BIGINT
                   constraints:
                     primaryKey: true
                     nullable: false
               - column:
                   name: short_answer
-                  type: text
+                  type: TEXT
                   constraints:
                     nullable: false
               - column:
                   name: long_answer
-                  type: text
+                  type: TEXT
 
         - addForeignKeyConstraint:
             baseTableName: interview_content
-            baseColumnNames: question_id
+            baseColumnNames: id
             referencedTableName: questions
             referencedColumnNames: id
             onDelete: CASCADE

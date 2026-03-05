@@ -1,19 +1,11 @@
 package com.kdob.piq.question.infrastructure.persistence.topic
 
-import jakarta.persistence.Column
-import jakarta.persistence.Entity
-import jakarta.persistence.GeneratedValue
-import jakarta.persistence.Id
-import jakarta.persistence.Table
-import java.util.UUID
+import jakarta.persistence.*
+import com.kdob.piq.question.infrastructure.persistence.BaseEntity
 
 @Entity
 @Table(name = "topics")
 class TopicEntity(
-    @Id
-    @GeneratedValue
-    val id: UUID? = null,
-
     @Column(nullable = false, unique = true)
     val key: String,
 
@@ -21,8 +13,16 @@ class TopicEntity(
     val name: String,
 
     @Column(name = "parent_id")
-    val parentId: UUID?,
+    val parentId: Long?,
 
     @Column(nullable = false, unique = true)
     val path: String
-)
+) : BaseEntity() {
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "topics_sequence")
+    @SequenceGenerator(name = "topics_sequence", sequenceName = "topics_id_sequence", allocationSize = 50)
+    var id: Long? = null
+    override fun getIdValue(): Long? {
+        return id
+    }
+}

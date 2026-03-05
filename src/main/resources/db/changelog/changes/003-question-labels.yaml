@@ -8,12 +8,12 @@ databaseChangeLog:
             columns:
               - column:
                   name: question_id
-                  type: uuid
+                  type: BIGINT
                   constraints:
                     nullable: false
               - column:
                   name: label
-                  type: varchar(100)
+                  type: VARCHAR(100)
                   constraints:
                     nullable: false
 

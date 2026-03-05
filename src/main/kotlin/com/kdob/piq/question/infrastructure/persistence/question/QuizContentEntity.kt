@@ -1,15 +1,11 @@
 package com.kdob.piq.question.infrastructure.persistence.question
 
+import com.kdob.piq.question.infrastructure.persistence.BaseEntity
 import jakarta.persistence.*
-import java.util.*
 
 @Entity
 @Table(name = "quiz_content")
 class QuizContentEntity(
-
-    @Id
-    @GeneratedValue
-    val id: UUID? = null,
 
     @OneToOne
     @JoinColumn(name = "question_id", unique = true, nullable = false)
@@ -21,4 +17,12 @@ class QuizContentEntity(
         orphanRemoval = true
     )
     val answers: MutableList<QuizAnswerEntity> = mutableListOf()
-)
+) : BaseEntity() {
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "quiz_content_sequence")
+    @SequenceGenerator(name = "quiz_content_sequence", sequenceName = "quiz_content_id_sequence", allocationSize = 50)
+    var id: Long? = null
+    override fun getIdValue(): Long? {
+        return id
+    }
+}

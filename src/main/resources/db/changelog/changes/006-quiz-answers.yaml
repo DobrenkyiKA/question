@@ -3,18 +3,22 @@ databaseChangeLog:
       id: 007-quiz-answers
       author: Konstantin Dobrenkii
       changes:
+        - createSequence:
+            sequenceName: quiz_answers_id_sequence
+            startValue: 1
+            incrementBy: 50
+            cacheSize: 50
         - createTable:
             tableName: quiz_answers
             columns:
               - column:
                   name: id
-                  type: uuid
+                  type: BIGINT
                   constraints:
-                    primaryKey: true
                     nullable: false
               - column:
                   name: quiz_content_id
-                  type: uuid
+                  type: BIGINT
                   constraints:
                     nullable: false
               - column:
@@ -30,7 +34,10 @@ databaseChangeLog:
               - column:
                   name: explanation
                   type: text
-
+        - addPrimaryKey:
+            tableName: quiz_answers
+            columnNames: id
+            constraintName: pk_quiz_answers_id
         - addForeignKeyConstraint:
             baseTableName: quiz_answers
             baseColumnNames: quiz_content_id

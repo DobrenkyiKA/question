@@ -5,7 +5,7 @@ import org.springframework.data.jpa.repository.Query
 import java.util.UUID
 
 interface QuestionPromptRepository :
-    JpaRepository<QuestionPromptEntity, UUID> {
+    JpaRepository<QuestionPromptEntity, Long> {
 
     @Query(
         """

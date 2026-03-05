@@ -4,7 +4,6 @@ import com.kdob.piq.question.domain.question.Difficulty
 import com.kdob.piq.question.infrastructure.persistence.topic.TopicEntity
 import jakarta.persistence.criteria.JoinType
 import org.springframework.data.jpa.domain.Specification
-import java.util.*
 
 object QuestionSpecifications {
 
@@ -29,8 +28,8 @@ object QuestionSpecifications {
             cb.isNotNull(root.get<Any>("quizContent"))
         }
 
-    fun hasAnyTopicId(topicIds: Set<UUID>): Specification<QuestionEntity> =
+    fun hasAnyTopicKey(topicKeys: Set<String>): Specification<QuestionEntity> =
         Specification { root, _, _ ->
-            root.get<TopicEntity>("topic").get<UUID>("id").`in`(topicIds)
+            root.get<TopicEntity>("topic").get<String>("key").`in`(topicKeys)
         }
 }
