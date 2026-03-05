@@ -6,11 +6,30 @@ spring:
     url: jdbc:postgresql://localhost:5433/question_db
     username: question_user
     password: question_pass
+    hikari:
+      maximum-pool-size: 10
+      minimum-idle: 2
+      connection-timeout: 30000
+      idle-timeout: 600000
+      max-lifetime: 1800000
+
 
   jpa:
     hibernate:
       ddl-auto: validate
     open-in-view: false
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        jdbc:
+          batch_size: 50
+        order_inserts: true
+        order_updates: true
+        generate_statistics: true
+        id:
+          new_generator_mappings: true
+        default_batch_fetch_size: 50
+
 
   liquibase:
     enabled: true
@@ -27,6 +46,10 @@ logging:
     liquibase: INFO
     liquibase.executor: INFO
     liquibase.changelog: INFO
+    org.hibernate:
+      sql: DEBUG
+      type.descriptor.sql.BasicBinder: TRACE
+
     org:
       springframework:
         security: DEBUG # or trace
