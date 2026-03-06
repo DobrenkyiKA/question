@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository
 
 @Repository
 class JpaQuestionQueryRepository(
-    private val repository: QuestionRepository
+    private val questionRepository: QuestionRepository
 ) : QuestionQueryRepository {
 
     override fun findByCriteria(
@@ -50,6 +50,6 @@ class JpaQuestionQueryRepository(
             }
         }
 
-        return repository.findAll(spec, pageable).map { it.toDomain() }
+        return questionRepository.findAll(spec, pageable).map { it.toDomain() }
     }
 }
