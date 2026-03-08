@@ -14,15 +14,15 @@ class QuestionEntity(
     val key: String,
 
     @Column(nullable = false)
-    val prompt: String,
+    var prompt: String,
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    val difficulty: Difficulty,
+    var difficulty: Difficulty,
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "topic_id", nullable = false)
-    val topic: TopicEntity,
+    var topic: TopicEntity,
 
     @ElementCollection
     @CollectionTable(
@@ -30,7 +30,7 @@ class QuestionEntity(
         joinColumns = [JoinColumn(name = "question_id")]
     )
     @Column(name = "label", nullable = false)
-    val labels: Set<String> = emptySet(),
+    var labels: Set<String> = emptySet(),
 
     @OneToOne(mappedBy = "question", cascade = [CascadeType.ALL], fetch = FetchType.LAZY)
     var interviewContent: InterviewContentEntity? = null,

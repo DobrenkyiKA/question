@@ -53,3 +53,6 @@ logging:
     org:
       springframework:
         security: DEBUG # or trace
+
+storage:
+  url: http://localhost:8084

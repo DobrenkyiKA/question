@@ -6,4 +6,6 @@ import java.util.UUID
 
 interface QuestionRepository :
     JpaRepository<QuestionEntity, Long>,
-    JpaSpecificationExecutor<QuestionEntity>
+    JpaSpecificationExecutor<QuestionEntity> {
+    fun findByKey(key: String): QuestionEntity?
+}

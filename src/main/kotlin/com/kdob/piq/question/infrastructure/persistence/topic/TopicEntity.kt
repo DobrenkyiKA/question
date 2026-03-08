@@ -10,13 +10,13 @@ class TopicEntity(
     val key: String,
 
     @Column(nullable = false)
-    val name: String,
+    var name: String,
 
     @Column(name = "parent_id")
-    val parentId: Long?,
+    var parentId: Long?,
 
     @Column(nullable = false, unique = true)
-    val path: String
+    var path: String
 ) : BaseEntity() {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "topics_sequence")

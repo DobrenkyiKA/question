@@ -13,13 +13,13 @@ class QuizAnswerEntity(
     val quizContent: QuizContentEntity,
 
     @Column(nullable = false)
-    val text: String,
+    var text: String,
 
     @Column(nullable = false)
-    val correct: Boolean,
+    var correct: Boolean,
 
     @Column
-    val explanation: String?
+    var explanation: String?
 ) : BaseEntity() {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "quiz_answers_sequence")

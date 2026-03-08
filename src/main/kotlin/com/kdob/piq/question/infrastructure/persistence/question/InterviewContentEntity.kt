@@ -14,10 +14,10 @@ class InterviewContentEntity(
     val question: QuestionEntity,
 
     @Column(nullable = false)
-    val shortAnswer: String,
+    var shortAnswer: String,
 
     @Column
-    val longAnswer: String?
+    var longAnswer: String?
 ) : BaseEntity() {
 
     @Id
