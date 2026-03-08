@@ -7,11 +7,9 @@ import com.kdob.piq.question.domain.question.QuizContent
 
 fun QuestionEntity.toDomain(): Question =
     Question(
-        id = id,
         key = key,
         prompt = prompt,
         difficulty = difficulty,
-        topicId = topic.id!!,
         topicKey = topic.key,
         labels = labels.toSet(),
         interviewContent = interviewContent?.toDomain(),

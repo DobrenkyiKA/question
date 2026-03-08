@@ -8,7 +8,6 @@ import java.util.*
  * of a Question for both admin and user UIs.
  */
 data class QuestionResponse(
-    val id: Long,
     val key: String,
     val prompt: String,
     val difficulty: Difficulty,

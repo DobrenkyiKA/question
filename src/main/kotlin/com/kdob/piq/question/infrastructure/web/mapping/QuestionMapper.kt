@@ -13,7 +13,6 @@ object QuestionMapper {
 
     fun toResponse(domain: Question): QuestionResponse =
         QuestionResponse(
-            id = domain.id!!,
             key = domain.key,
             prompt = domain.prompt,
             difficulty = domain.difficulty,
