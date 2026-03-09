@@ -6,7 +6,8 @@ fun TopicEntity.toDomain(): Topic =
     Topic(
         key = key,
         name = name,
-        path = path
+        path = path,
+        description = description
     )
 
 fun Topic.toEntity(parentId: Long? = null): TopicEntity =
@@ -14,5 +15,6 @@ fun Topic.toEntity(parentId: Long? = null): TopicEntity =
         key = key,
         name = name,
         parentId = parentId,
-        path = path
+        path = path,
+        description = description
     )

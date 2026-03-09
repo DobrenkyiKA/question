@@ -9,7 +9,8 @@ data class TopicDto(
     val key: String,
     val name: String,
     val path: String,
-    val parentKey: String?
+    val parentKey: String?,
+    val description: String = ""
 )
 
 data class TopicQuestionsDto(

@@ -75,13 +75,15 @@ class CatalogSyncService(
                 existing.name = dto.name
                 existing.path = dto.path
                 existing.parentId = parentId
+                existing.description = dto.description
                 topicRepository.save(existing)
             } else {
                 val entity = TopicEntity(
                     key = dto.key,
                     name = dto.name,
                     path = dto.path,
-                    parentId = parentId
+                    parentId = parentId,
+                    description = dto.description
                 )
                 topicRepository.save(entity)
             }
@@ -215,7 +217,8 @@ class CatalogSyncService(
         key = key,
         name = name,
         path = path,
-        parentKey = parentId?.let { topicRepository.findById(it).orElse(null)?.key }
+        parentKey = parentId?.let { topicRepository.findById(it).orElse(null)?.key },
+        description = description
     )
 
     private fun QuestionEntity.toDto() = QuestionDto(

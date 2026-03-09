@@ -28,7 +28,8 @@ class AdminTopicService(
         val topic = Topic(
             key = sanitizedKey,
             name = req.name,
-            path = path
+            path = path,
+            description = req.description
         )
 
         return topicCommandRepository.save(topic)
@@ -40,11 +41,11 @@ class AdminTopicService(
         val existing = topicQueryRepository.findByKey(key)
             ?: throw IllegalArgumentException("Topic not found: $key")
 
-        if (existing.key == sanitizedKey && existing.name == req.name) {
+        if (existing.key == sanitizedKey && existing.name == req.name && existing.description == req.description) {
             return existing
         }
 
-        var updatedTopic = existing.copy(name = req.name)
+        var updatedTopic = existing.copy(name = req.name, description = req.description)
 
         if (existing.key != sanitizedKey) {
             val oldPath = existing.path

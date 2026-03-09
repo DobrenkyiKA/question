@@ -7,6 +7,7 @@ fun Topic.toResponse(): TopicResponse =
     TopicResponse(
         key = key,
         name = name,
-        path = path
+        path = path,
+        description = description
     )
 
