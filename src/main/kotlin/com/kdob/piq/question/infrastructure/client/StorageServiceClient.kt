@@ -17,6 +17,14 @@ class StorageServiceClient(
         return restTemplate.exchange("$baseUrl/versions", HttpMethod.GET, null, typeRef).body ?: emptyList()
     }
 
+    fun refresh() {
+        restTemplate.postForLocation("$baseUrl/versions/refresh", null)
+    }
+
+    fun deleteVersion(version: String) {
+        restTemplate.delete("$baseUrl/versions/$version")
+    }
+
     fun listTopics(version: String): List<String> {
         val typeRef = object : ParameterizedTypeReference<List<String>>() {}
         return restTemplate.exchange("$baseUrl/versions/$version/topics", HttpMethod.GET, null, typeRef).body ?: emptyList()

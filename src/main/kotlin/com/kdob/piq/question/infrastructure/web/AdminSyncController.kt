@@ -13,6 +13,7 @@ class AdminSyncController(
 
     @GetMapping("/versions")
     fun getVersions(): List<String> {
+        storageClient.refresh()
         return storageClient.getVersions()
     }
 
@@ -23,11 +24,17 @@ class AdminSyncController(
 
     @PostMapping("/import")
     fun import(@RequestParam version: String) {
+        storageClient.refresh()
         syncService.importFromVersion(version)
     }
 
     @PostMapping("/import-artifact")
     fun importArtifact(@RequestParam version: String, @RequestBody artifactYaml: String) {
         syncService.importArtifact(version, artifactYaml)
+    }
+
+    @DeleteMapping("/versions/{version}")
+    fun deleteVersion(@PathVariable version: String) {
+        storageClient.deleteVersion(version)
     }
 }
