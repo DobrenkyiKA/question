@@ -56,9 +56,8 @@ databaseChangeLog:
             baseColumnNames: topic_id
             referencedTableName: topics
             referencedColumnNames: id
-            onDelete: RESTRICT
+            onDelete: CASCADE
             constraintName: fk_questions_topic
-
 # SQL:
 # CREATE TABLE questions (
 #   id UUID PRIMARY KEY,
