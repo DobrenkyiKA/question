@@ -24,61 +24,67 @@ class AdminTopicServiceUpdateTest {
     private lateinit var entityManager: EntityManager
 
     @Test
-    fun shouldUpdateTopicDescription() {
+    fun shouldUpdateTopicCoverageArea() {
         // 1. Create a topic
         val topic = TopicEntity(
             key = "topic-to-update",
             name = "Original Name",
             parentId = null,
             path = "/topic-to-update",
-            description = "Original Description"
+            coverageArea = "Original Coverage Area",
+            exclusions = "Original Exclusions"
         )
         entityManager.persist(topic)
         entityManager.flush()
         entityManager.clear()
 
-        // 2. Update the topic description
+        // 2. Update the topic coverageArea
         val updateRequest = UpdateTopicRequest(
             key = "topic-to-update",
             name = "Updated Name",
-            description = "Updated Description"
+            coverageArea = "Updated Coverage Area",
+            exclusions = "Updated Exclusions"
         )
         adminTopicService.updateTopic("topic-to-update", updateRequest)
         entityManager.flush()
         entityManager.clear()
 
-        // 3. Verify description is updated
+        // 3. Verify properties are updated
         val updatedTopic = topicRepository.findByKey("topic-to-update")
         assertEquals("Updated Name", updatedTopic?.name)
-        assertEquals("Updated Description", updatedTopic?.description)
+        assertEquals("Updated Coverage Area", updatedTopic?.coverageArea)
+        assertEquals("Updated Exclusions", updatedTopic?.exclusions)
     }
 
     @Test
-    fun shouldUpdateTopicDescriptionToEmpty() {
+    fun shouldUpdateTopicCoverageAreaToEmpty() {
         // 1. Create a topic
         val topic = TopicEntity(
             key = "topic-to-update-empty",
             name = "Original Name",
             parentId = null,
             path = "/topic-to-update-empty",
-            description = "Original Description"
+            coverageArea = "Original Coverage Area",
+            exclusions = "Original Exclusions"
         )
         entityManager.persist(topic)
         entityManager.flush()
         entityManager.clear()
 
-        // 2. Update the topic description to empty
+        // 2. Update the topic coverageArea to empty
         val updateRequest = UpdateTopicRequest(
             key = "topic-to-update-empty",
             name = "Updated Name",
-            description = ""
+            coverageArea = "",
+            exclusions = ""
         )
         adminTopicService.updateTopic("topic-to-update-empty", updateRequest)
         entityManager.flush()
         entityManager.clear()
 
-        // 3. Verify description is updated to empty
+        // 3. Verify coverageArea is updated to empty
         val updatedTopic = topicRepository.findByKey("topic-to-update-empty")
-        assertEquals("", updatedTopic?.description)
+        assertEquals("", updatedTopic?.coverageArea)
+        assertEquals("", updatedTopic?.exclusions)
     }
 }

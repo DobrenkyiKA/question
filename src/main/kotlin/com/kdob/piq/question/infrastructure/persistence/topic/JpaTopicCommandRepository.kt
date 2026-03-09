@@ -17,7 +17,8 @@ class JpaTopicCommandRepository(private val repo: SpringDataTopicRepository) : T
             name = topic.name
             path = topic.path
             this.parentId = parentId
-            description = topic.description
+            coverageArea = topic.coverageArea
+            exclusions = topic.exclusions
         } ?: topic.toEntity(parentId)
 
         return repo.saveAndFlush(entity).toDomain()
@@ -36,7 +37,8 @@ class JpaTopicCommandRepository(private val repo: SpringDataTopicRepository) : T
         entity.name = topic.name
         entity.path = topic.path
         entity.parentId = parentId
-        entity.description = topic.description
+        entity.coverageArea = topic.coverageArea
+        entity.exclusions = topic.exclusions
 
         return repo.saveAndFlush(entity).toDomain()
     }

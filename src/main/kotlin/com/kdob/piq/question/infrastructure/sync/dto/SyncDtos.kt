@@ -10,7 +10,8 @@ data class TopicDto(
     val name: String,
     val path: String,
     val parentKey: String?,
-    val description: String = ""
+    val coverageArea: String = "",
+    val exclusions: String = ""
 )
 
 data class TopicQuestionsDto(

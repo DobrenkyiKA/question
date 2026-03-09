@@ -4,5 +4,6 @@ data class TopicResponse(
     val key: String,
     val name: String,
     val path: String,
-    val description: String = ""
+    val coverageArea: String = "",
+    val exclusions: String = ""
 )

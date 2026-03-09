@@ -8,6 +8,7 @@ fun Topic.toResponse(): TopicResponse =
         key = key,
         name = name,
         path = path,
-        description = description
+        coverageArea = coverageArea,
+        exclusions = exclusions
     )
 

@@ -19,8 +19,10 @@ class TopicEntity(
     @Column(nullable = false, unique = true)
     var path: String,
 
+    @Column(name = "coverage_area", nullable = false)
+    var coverageArea: String = "",
     @Column(nullable = false)
-    var description: String = ""
+    var exclusions: String = ""
 ) : BaseEntity() {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "topics_sequence")

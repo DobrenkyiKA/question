@@ -75,7 +75,8 @@ class CatalogSyncService(
                 existing.name = dto.name
                 existing.path = dto.path
                 existing.parentId = parentId
-                existing.description = dto.description
+                existing.coverageArea = dto.coverageArea
+                existing.exclusions = dto.exclusions
                 topicRepository.save(existing)
             } else {
                 val entity = TopicEntity(
@@ -83,7 +84,8 @@ class CatalogSyncService(
                     name = dto.name,
                     path = dto.path,
                     parentId = parentId,
-                    description = dto.description
+                    coverageArea = dto.coverageArea,
+                    exclusions = dto.exclusions
                 )
                 topicRepository.save(entity)
             }
@@ -218,7 +220,8 @@ class CatalogSyncService(
         name = name,
         path = path,
         parentKey = parentId?.let { topicRepository.findById(it).orElse(null)?.key },
-        description = description
+        coverageArea = coverageArea,
+        exclusions = exclusions
     )
 
     private fun QuestionEntity.toDto() = QuestionDto(

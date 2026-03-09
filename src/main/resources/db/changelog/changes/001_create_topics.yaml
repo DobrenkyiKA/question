@@ -35,7 +35,12 @@ databaseChangeLog:
                   constraints:
                     nullable: false
               - column:
-                  name: description
+                  name: coverage_area
+                  type: TEXT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: exclusions
                   type: TEXT
                   constraints:
                     nullable: false
@@ -56,7 +61,12 @@ databaseChangeLog:
             onDelete: CASCADE
         - addNotNullConstraint:
             tableName: topics
-            columnName: description
+            columnName: coverage_area
+            columnDataType: TEXT
+            defaultNullValue: ""
+        - addNotNullConstraint:
+            tableName: topics
+            columnName: exclusions
             columnDataType: TEXT
             defaultNullValue: ""
 # SQL:

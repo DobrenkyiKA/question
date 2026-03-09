@@ -7,7 +7,8 @@ fun TopicEntity.toDomain(): Topic =
         key = key,
         name = name,
         path = path,
-        description = description
+        coverageArea = coverageArea,
+        exclusions = exclusions
     )
 
 fun Topic.toEntity(parentId: Long? = null): TopicEntity =
@@ -16,5 +17,6 @@ fun Topic.toEntity(parentId: Long? = null): TopicEntity =
         name = name,
         parentId = parentId,
         path = path,
-        description = description
+        coverageArea = coverageArea,
+        exclusions = exclusions
     )
