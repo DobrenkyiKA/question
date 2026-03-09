@@ -6,6 +6,8 @@ import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 
+import com.kdob.piq.question.infrastructure.web.mapping.toResponse
+
 @RestController
 @RequestMapping("/topics")
 class TopicController(
@@ -14,13 +16,5 @@ class TopicController(
 
     @GetMapping
     fun getTopics(): List<TopicResponse> =
-        topicService.getAllTopics().map {
-            TopicResponse(
-                id = it.id!!,
-                key = it.key,
-                name = it.name,
-                parentId = it.parentId,
-                path = it.path
-            )
-        }
+        topicService.getAllTopics().map { it.toResponse() }
 }

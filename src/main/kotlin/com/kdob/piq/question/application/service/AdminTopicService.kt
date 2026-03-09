@@ -4,6 +4,7 @@ import com.kdob.piq.question.domain.topic.Topic
 import com.kdob.piq.question.infrastructure.persistence.topic.JpaTopicCommandRepository
 import com.kdob.piq.question.infrastructure.persistence.topic.JpaTopicQueryRepository
 import com.kdob.piq.question.infrastructure.web.dto.topic.CreateTopicRequest
+import com.kdob.piq.question.infrastructure.web.dto.topic.UpdateTopicRequest
 import jakarta.transaction.Transactional
 import org.springframework.stereotype.Service
 
@@ -24,13 +25,53 @@ class AdminTopicService(
             ?: "/${req.key}"
 
         val topic = Topic(
-            id = null,
             key = req.key,
             name = req.name,
-            parentId = parent?.id,
             path = path
         )
 
         return topicCommandRepository.save(topic)
+    }
+
+    @Transactional
+    fun updateTopic(key: String, req: UpdateTopicRequest): Topic {
+        val existing = topicQueryRepository.findByKey(key)
+            ?: throw IllegalArgumentException("Topic not found: $key")
+
+        if (existing.key == req.key && existing.name == req.name) {
+            return existing
+        }
+
+        var updatedTopic = existing.copy(name = req.name)
+
+        if (existing.key != req.key) {
+            val oldPath = existing.path
+            val parentPath = if (oldPath.contains("/")) oldPath.substringBeforeLast("/") else ""
+            val newPath = if (parentPath.isEmpty()) "/${req.key}" else "$parentPath/${req.key}"
+
+            updatedTopic = updatedTopic.copy(key = req.key, path = newPath)
+
+            // Update children paths
+            val descendants = topicQueryRepository.findAllByPathPrefix("$oldPath/")
+            descendants.forEach { descendant ->
+                val updatedDescendant = descendant.copy(
+                    path = descendant.path.replaceFirst(oldPath, newPath)
+                )
+                topicCommandRepository.save(updatedDescendant)
+            }
+        }
+
+        return topicCommandRepository.update(key, updatedTopic)
+    }
+
+    @Transactional
+    fun deleteTopic(key: String) {
+        val topic = topicQueryRepository.findByKey(key)
+            ?: throw IllegalArgumentException("Topic not found: $key")
+
+        if (topicQueryRepository.hasChildren(topic.path)) {
+            throw IllegalStateException("Cannot delete topic with child topics")
+        }
+        topicCommandRepository.delete(key)
     }
 }

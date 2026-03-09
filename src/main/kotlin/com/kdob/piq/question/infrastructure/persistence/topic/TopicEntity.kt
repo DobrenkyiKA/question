@@ -7,7 +7,7 @@ import com.kdob.piq.question.infrastructure.persistence.BaseEntity
 @Table(name = "topics")
 class TopicEntity(
     @Column(nullable = false, unique = true)
-    val key: String,
+    var key: String,
 
     @Column(nullable = false)
     var name: String,

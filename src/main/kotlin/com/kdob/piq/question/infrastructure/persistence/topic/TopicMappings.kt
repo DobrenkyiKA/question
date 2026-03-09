@@ -4,14 +4,12 @@ import com.kdob.piq.question.domain.topic.Topic
 
 fun TopicEntity.toDomain(): Topic =
     Topic(
-        id = id,
         key = key,
         name = name,
-        parentId = parentId,
         path = path
     )
 
-fun Topic.toEntity(): TopicEntity =
+fun Topic.toEntity(parentId: Long? = null): TopicEntity =
     TopicEntity(
         key = key,
         name = name,

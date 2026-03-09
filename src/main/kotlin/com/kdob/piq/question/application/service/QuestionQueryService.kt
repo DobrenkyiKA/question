@@ -24,13 +24,13 @@ class QuestionQueryService(
         pageable: Pageable
     ): Page<Question> {
 
-        val topicKeys = if (topicKeys.isNotEmpty()) {
+        val expandedTopicKeys = if (topicKeys.isNotEmpty()) {
             topicKeys
                 .flatMap { key ->
-                    val root = topicQueryRepository.findByKey(key)
+                    val root = topicQueryRepository.findByKey(key) ?: return@flatMap emptyList()
                     topicQueryRepository
                         .findAllByPathPrefix(root.path)
-                        .mapNotNull { it.key }
+                        .map { it.key }
                 }
                 .toSet()
         } else {
@@ -38,7 +38,7 @@ class QuestionQueryService(
         }
 
         return questionRepository.findByCriteria(
-            topicKeys = topicKeys,
+            topicKeys = expandedTopicKeys,
             difficulties = difficulties,
             labels = labels,
             formats = formats,

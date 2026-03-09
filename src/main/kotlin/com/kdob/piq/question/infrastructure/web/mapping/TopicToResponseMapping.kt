@@ -5,10 +5,8 @@ import com.kdob.piq.question.infrastructure.web.dto.topic.TopicResponse
 
 fun Topic.toResponse(): TopicResponse =
     TopicResponse(
-        id = id!!,
         key = key,
         name = name,
-        parentId = parentId,
         path = path
     )
 
