@@ -129,9 +129,11 @@ class CatalogSyncService(
         }
 
         val allTopics = topicRepository.findAll()
-        allTopics.filter { it.key !in importedTopicKeys }.forEach {
-            topicRepository.delete(it)
-        }
+        allTopics.filter { it.key !in importedTopicKeys }
+            .sortedByDescending { it.path.split("/").size }
+            .forEach {
+                topicRepository.delete(it)
+            }
     }
 
     @Transactional

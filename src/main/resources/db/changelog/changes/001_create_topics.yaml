@@ -48,6 +48,7 @@ databaseChangeLog:
             referencedTableName: topics
             referencedColumnNames: id
             constraintName: fk_topics_parent
+            onDelete: CASCADE
 
 # SQL:
 # CREATE TABLE topics (

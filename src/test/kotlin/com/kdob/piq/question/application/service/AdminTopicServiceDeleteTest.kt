@@ -10,6 +10,7 @@ import jakarta.persistence.EntityManager
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertNull
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.assertThrows
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.transaction.annotation.Transactional
@@ -84,5 +85,39 @@ class AdminTopicServiceDeleteTest {
             "SELECT count(*) FROM question_labels WHERE label = 'test-label'"
         ).singleResult as Number
         assertEquals(0, labelsCount.toInt(), "Question labels should be deleted")
+    }
+
+    @Test
+    fun shouldDeleteParentTopicAndChildShouldBeDeletedByCascade() {
+        // 1. Create a parent topic
+        val parent = TopicEntity(
+            key = "parent-cascade",
+            name = "Parent Cascade",
+            parentId = null,
+            path = "/parent-cascade"
+        )
+        entityManager.persist(parent)
+        entityManager.flush()
+
+        // 2. Create a child topic pointing to parent
+        val child = TopicEntity(
+            key = "child-cascade",
+            name = "Child Cascade",
+            parentId = parent.id,
+            path = "/parent-cascade/child-cascade"
+        )
+        entityManager.persist(child)
+        entityManager.flush()
+        entityManager.clear()
+
+        // 3. Attempt to delete parent via repository (this should now SUCCEED)
+        topicRepository.deleteByKey("parent-cascade")
+        entityManager.flush()
+        entityManager.clear()
+
+        // 4. Verify parent is gone
+        assertNull(topicRepository.findByKey("parent-cascade"))
+        // 5. Verify child is gone (via database cascade)
+        assertNull(topicRepository.findByKey("child-cascade"), "Child topic should be deleted by database cascade")
     }
 }
