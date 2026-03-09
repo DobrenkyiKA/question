@@ -16,16 +16,17 @@ class AdminTopicService(
 
     @Transactional
     fun createTopic(req: CreateTopicRequest): Topic {
+        val sanitizedKey = validateAndSanitizeKey(req.key)
         val parent = req.parentPath?.let {
             topicQueryRepository.findByPath(it)
                 ?: throw IllegalArgumentException("Parent topic not found: $it")
         }
 
-        val path = parent?.path?.let { "$it/${req.key}" }
-            ?: "/${req.key}"
+        val path = parent?.path?.let { "$it/$sanitizedKey" }
+            ?: "/$sanitizedKey"
 
         val topic = Topic(
-            key = req.key,
+            key = sanitizedKey,
             name = req.name,
             path = path
         )
@@ -35,21 +36,22 @@ class AdminTopicService(
 
     @Transactional
     fun updateTopic(key: String, req: UpdateTopicRequest): Topic {
+        val sanitizedKey = validateAndSanitizeKey(req.key)
         val existing = topicQueryRepository.findByKey(key)
             ?: throw IllegalArgumentException("Topic not found: $key")
 
-        if (existing.key == req.key && existing.name == req.name) {
+        if (existing.key == sanitizedKey && existing.name == req.name) {
             return existing
         }
 
         var updatedTopic = existing.copy(name = req.name)
 
-        if (existing.key != req.key) {
+        if (existing.key != sanitizedKey) {
             val oldPath = existing.path
             val parentPath = if (oldPath.contains("/")) oldPath.substringBeforeLast("/") else ""
-            val newPath = if (parentPath.isEmpty()) "/${req.key}" else "$parentPath/${req.key}"
+            val newPath = if (parentPath.isEmpty()) "/$sanitizedKey" else "$parentPath/$sanitizedKey"
 
-            updatedTopic = updatedTopic.copy(key = req.key, path = newPath)
+            updatedTopic = updatedTopic.copy(key = sanitizedKey, path = newPath)
             val result = topicCommandRepository.update(key, updatedTopic)
 
             // Update children paths
@@ -64,6 +66,14 @@ class AdminTopicService(
         }
 
         return topicCommandRepository.update(key, updatedTopic)
+    }
+
+    private fun validateAndSanitizeKey(key: String): String {
+        val sanitized = key.lowercase().replace("\\s+".toRegex(), "-")
+        if (!sanitized.matches("^[a-z0-9-]+$".toRegex())) {
+            throw IllegalArgumentException("Key must contain only lowercase letters, numbers, and hyphens: $key")
+        }
+        return sanitized
     }
 
     @Transactional
