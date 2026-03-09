@@ -16,7 +16,7 @@ class JpaTopicQueryRepository(
         repo.findByPathStartingWith(path).map { it.toDomain() }
 
     override fun findAll(): List<Topic> =
-        repo.findAll().map { it.toDomain() }
+        repo.findAllByOrderByNameAsc().map { it.toDomain() }
 
     override fun hasChildren(path: String): Boolean =
         repo.existsByPathStartingWith("$path/")
