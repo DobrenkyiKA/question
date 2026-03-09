@@ -11,4 +11,7 @@ class TopicService(
 
     fun getAllTopics(): List<Topic> =
         topicRepository.findAll()
+
+    fun getTopicByKey(key: String): Topic? =
+        topicRepository.findByKey(key)
 }
