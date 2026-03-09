@@ -50,6 +50,7 @@ class AdminTopicService(
             val newPath = if (parentPath.isEmpty()) "/${req.key}" else "$parentPath/${req.key}"
 
             updatedTopic = updatedTopic.copy(key = req.key, path = newPath)
+            val result = topicCommandRepository.update(key, updatedTopic)
 
             // Update children paths
             val descendants = topicQueryRepository.findAllByPathPrefix("$oldPath/")
@@ -59,9 +60,47 @@ class AdminTopicService(
                 )
                 topicCommandRepository.save(updatedDescendant)
             }
+            return result
         }
 
         return topicCommandRepository.update(key, updatedTopic)
+    }
+
+    @Transactional
+    fun moveTopic(key: String, newParentPath: String?): Topic {
+        val topic = topicQueryRepository.findByKey(key)
+            ?: throw IllegalArgumentException("Topic not found: $key")
+
+        val newParent = newParentPath?.let {
+            topicQueryRepository.findByPath(it)
+                ?: throw IllegalArgumentException("New parent topic not found: $it")
+        }
+
+        val oldPath = topic.path
+        val newPath = newParent?.let { "${it.path}/${topic.key}" } ?: "/${topic.key}"
+
+        if (oldPath == newPath) {
+            return topic
+        }
+
+        // Prevent moving a topic into its own descendant
+        if (newPath.startsWith("$oldPath/")) {
+            throw IllegalArgumentException("Cannot move a topic into its own descendant")
+        }
+
+        val updatedTopic = topic.copy(path = newPath)
+        val result = topicCommandRepository.update(key, updatedTopic)
+
+        // Update descendants
+        val descendants = topicQueryRepository.findAllByPathPrefix("$oldPath/")
+        descendants.forEach { descendant ->
+            val updatedDescendant = descendant.copy(
+                path = descendant.path.replaceFirst(oldPath, newPath)
+            )
+            topicCommandRepository.save(updatedDescendant)
+        }
+
+        return result
     }
 
     @Transactional

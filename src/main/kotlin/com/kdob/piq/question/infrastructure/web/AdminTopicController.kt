@@ -22,6 +22,10 @@ class AdminTopicController(
     fun update(@PathVariable key: String, @RequestBody req: UpdateTopicRequest): TopicResponse =
         topicService.updateTopic(key, req).toResponse()
 
+    @PatchMapping("/{key}/move")
+    fun move(@PathVariable key: String, @RequestParam(required = false) parentPath: String?): TopicResponse =
+        topicService.moveTopic(key, parentPath).toResponse()
+
     @DeleteMapping("/{key}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     fun delete(@PathVariable key: String) {
