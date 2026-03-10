@@ -37,4 +37,9 @@ class AdminSyncController(
     fun deleteVersion(@PathVariable version: String) {
         storageClient.deleteVersion(version)
     }
+
+    @GetMapping("/versions/{version}/last-commit-message")
+    fun getLastCommitMessage(@PathVariable version: String): String {
+        return storageClient.getLastCommitMessage(version)
+    }
 }

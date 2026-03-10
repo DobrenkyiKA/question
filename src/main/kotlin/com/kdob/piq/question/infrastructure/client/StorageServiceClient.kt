@@ -25,6 +25,10 @@ class StorageServiceClient(
         restTemplate.delete("$baseUrl/versions/$version")
     }
 
+    fun getLastCommitMessage(version: String): String {
+        return restTemplate.getForObject("$baseUrl/versions/$version/last-commit-message", String::class.java) ?: ""
+    }
+
     fun listTopics(version: String): List<String> {
         val typeRef = object : ParameterizedTypeReference<List<String>>() {}
         return restTemplate.exchange("$baseUrl/versions/$version/topics", HttpMethod.GET, null, typeRef).body ?: emptyList()
