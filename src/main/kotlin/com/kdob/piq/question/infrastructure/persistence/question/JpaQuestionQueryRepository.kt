@@ -18,7 +18,9 @@ class JpaQuestionQueryRepository(
         difficulties: Set<Difficulty>,
         labels: Set<String>,
         formats: Set<String>,
-        pageable: Pageable
+        pageable: Pageable,
+        searchTerm: String?,
+        searchInAnswers: Boolean,
     ): Page<Question> {
         var spec: Specification<QuestionEntity> = Specification { _, _, _ -> null }
 
@@ -48,6 +50,10 @@ class JpaQuestionQueryRepository(
             formatSpec?.let {
                 spec = spec.and(it)
             }
+        }
+
+        if (!searchTerm.isNullOrBlank()) {
+            spec = spec.and(QuestionSpecifications.search(searchTerm, searchInAnswers))
         }
 
         return questionRepository.findAll(spec, pageable).map { it.toDomain() }

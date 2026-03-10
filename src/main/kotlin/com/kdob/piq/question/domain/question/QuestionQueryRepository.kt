@@ -10,5 +10,7 @@ interface QuestionQueryRepository {
         labels: Set<String>,
         formats: Set<String>,
         pageable: Pageable,
+        searchTerm: String? = null,
+        searchInAnswers: Boolean = false,
     ): Page<Question>
 }

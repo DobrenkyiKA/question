@@ -21,7 +21,9 @@ class QuestionQueryService(
         difficulties: Set<Difficulty>,
         labels: Set<String>,
         formats: Set<String>,
-        pageable: Pageable
+        pageable: Pageable,
+        searchTerm: String? = null,
+        searchInAnswers: Boolean = false,
     ): Page<Question> {
 
         val expandedTopicKeys = if (topicKeys.isNotEmpty()) {
@@ -42,7 +44,9 @@ class QuestionQueryService(
             difficulties = difficulties,
             labels = labels,
             formats = formats,
-            pageable = pageable
+            pageable = pageable,
+            searchTerm = searchTerm,
+            searchInAnswers = searchInAnswers,
         )
     }
 }

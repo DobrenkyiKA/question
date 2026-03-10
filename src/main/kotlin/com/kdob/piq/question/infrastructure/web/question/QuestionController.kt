@@ -23,6 +23,8 @@ class QuestionController(
         @RequestParam(required = false) difficulty: Set<Difficulty>?,
         @RequestParam(required = false) labels: Set<String>?,
         @RequestParam(required = false) formats: Set<String>?,
+        @RequestParam(required = false) searchTerm: String?,
+        @RequestParam(required = false, defaultValue = "false") searchInAnswers: Boolean,
         pageable: Pageable
     ): Page<QuestionResponse> {
         return service.findQuestions(
@@ -30,6 +32,8 @@ class QuestionController(
             difficulties = difficulty ?: emptySet(),
             labels = labels ?: emptySet(),
             formats = formats ?: emptySet(),
+            searchTerm = searchTerm,
+            searchInAnswers = searchInAnswers,
             pageable = pageable
         ).map { QuestionMapper.toResponse(it) }
     }
