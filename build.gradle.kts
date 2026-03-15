@@ -56,4 +56,9 @@ allOpen {
 
 tasks.withType<Test> {
     useJUnitPlatform()
+    jvmArgs(
+        "-javaagent:${configurations.testRuntimeClasspath.get().find { it.name.startsWith("byte-buddy-agent") }}",
+        "-XX:+EnableDynamicAgentLoading",
+        "-Xshare:off"
+    )
 }
