@@ -119,10 +119,6 @@ class AdminTopicService(
     fun deleteTopic(key: String) {
         val topic = topicQueryRepository.findByKey(key)
             ?: throw IllegalArgumentException("Topic not found: $key")
-
-        if (topicQueryRepository.hasChildren(topic.path)) {
-            throw IllegalStateException("Cannot delete topic with child topics")
-        }
         topicCommandRepository.delete(key)
     }
 }

@@ -9,6 +9,8 @@ fun Topic.toResponse(): TopicResponse =
         name = name,
         path = path,
         coverageArea = coverageArea,
-        exclusions = exclusions
+        exclusions = exclusions,
+        questionCount = questionCount,
+        childCount = childCount
     )
 

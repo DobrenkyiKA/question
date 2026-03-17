@@ -3,8 +3,10 @@ package com.kdob.piq.question.infrastructure.persistence.topic
 import com.kdob.piq.question.domain.topic.Topic
 import com.kdob.piq.question.domain.topic.TopicQueryRepository
 import org.springframework.stereotype.Repository
+import org.springframework.transaction.annotation.Transactional
 
 @Repository
+@Transactional(readOnly = true)
 class JpaTopicQueryRepository(
     private val repo: SpringDataTopicRepository
 ) : TopicQueryRepository {

@@ -3,6 +3,7 @@ package com.kdob.piq.question.infrastructure.persistence.topic
 import jakarta.persistence.*
 import com.kdob.piq.question.infrastructure.persistence.BaseEntity
 import com.kdob.piq.question.infrastructure.persistence.question.QuestionEntity
+import org.hibernate.annotations.BatchSize
 
 @Entity
 @Table(name = "topics")
@@ -15,6 +16,14 @@ class TopicEntity(
 
     @Column(name = "parent_id")
     var parentId: Long?,
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "parent_id", insertable = false, updatable = false)
+    var parent: TopicEntity? = null,
+
+    @BatchSize(size = 50)
+    @OneToMany(mappedBy = "parent", cascade = [CascadeType.ALL], orphanRemoval = true)
+    var children: MutableSet<TopicEntity> = mutableSetOf(),
 
     @Column(nullable = false, unique = true)
     var path: String,
@@ -29,6 +38,7 @@ class TopicEntity(
     @SequenceGenerator(name = "topics_sequence", sequenceName = "topics_id_sequence", allocationSize = 50)
     var id: Long? = null
 
+    @BatchSize(size = 50)
     @OneToMany(mappedBy = "topic", cascade = [CascadeType.ALL], orphanRemoval = true)
     var questions: MutableSet<QuestionEntity> = mutableSetOf()
 

@@ -8,7 +8,9 @@ fun TopicEntity.toDomain(): Topic =
         name = name,
         path = path,
         coverageArea = coverageArea,
-        exclusions = exclusions
+        exclusions = exclusions,
+        questionCount = questions.size,
+        childCount = children.size
     )
 
 fun Topic.toEntity(parentId: Long? = null): TopicEntity =

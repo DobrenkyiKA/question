@@ -110,8 +110,8 @@ class AdminTopicServiceDeleteTest {
         entityManager.flush()
         entityManager.clear()
 
-        // 3. Attempt to delete parent via repository (this should now SUCCEED)
-        topicRepository.deleteByKey("parent-cascade")
+        // 3. Attempt to delete parent via service (this should now SUCCEED)
+        adminTopicService.deleteTopic("parent-cascade")
         entityManager.flush()
         entityManager.clear()
 
