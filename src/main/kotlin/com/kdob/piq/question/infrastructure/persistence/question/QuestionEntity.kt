@@ -4,7 +4,6 @@ import com.kdob.piq.question.domain.question.Difficulty
 import com.kdob.piq.question.infrastructure.persistence.BaseEntity
 import com.kdob.piq.question.infrastructure.persistence.topic.TopicEntity
 import jakarta.persistence.*
-import java.util.*
 
 @Entity(name = "Question")
 @Table(name = "questions")

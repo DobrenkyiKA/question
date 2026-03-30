@@ -7,7 +7,6 @@ import jakarta.persistence.*
 @Table(name = "interview_content")
 class InterviewContentEntity(
 
-
     @MapsId
     @OneToOne
     @JoinColumn(name = "id")
