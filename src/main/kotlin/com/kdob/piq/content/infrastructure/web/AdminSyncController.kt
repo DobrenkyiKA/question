@@ -1,0 +1,45 @@
+package com.kdob.piq.content.infrastructure.web
+
+import com.kdob.piq.content.infrastructure.client.StorageServiceClient
+import com.kdob.piq.content.infrastructure.sync.CatalogSyncService
+import org.springframework.web.bind.annotation.*
+
+@RestController
+@RequestMapping("/admin/sync")
+class AdminSyncController(
+    private val syncService: CatalogSyncService,
+    private val storageClient: StorageServiceClient
+) {
+
+    @GetMapping("/versions")
+    fun getVersions(): List<String> {
+        storageClient.refresh()
+        return storageClient.getVersions()
+    }
+
+    @PostMapping("/export")
+    fun export(@RequestParam version: String, @RequestParam message: String) {
+        syncService.exportToVersion(version, message)
+    }
+
+    @PostMapping("/import")
+    fun import(@RequestParam version: String) {
+        storageClient.refresh()
+        syncService.importFromVersion(version)
+    }
+
+    @PostMapping("/import-artifact")
+    fun importArtifact(@RequestParam version: String, @RequestBody artifactYaml: String) {
+        syncService.importArtifact(version, artifactYaml)
+    }
+
+    @DeleteMapping("/versions/{version}")
+    fun deleteVersion(@PathVariable version: String) {
+        storageClient.deleteVersion(version)
+    }
+
+    @GetMapping("/versions/{version}/last-commit-message")
+    fun getLastCommitMessage(@PathVariable version: String): String {
+        return storageClient.getLastCommitMessage(version)
+    }
+}

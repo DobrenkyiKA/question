@@ -40,9 +40,9 @@ The microservice is built using modern, robust technologies:
 The microservice follows a **layered architecture** with elements of **Domain-Driven Design (DDD)** and **Hexagonal (Ports and Adapters)** principles.
 
 ### Package Structure:
-- `com.kdob.piq.question.domain`: Contains core business logic, entities (`Question`, `Topic`), and repository interfaces (Ports). It is free from infrastructure dependencies.
-- `com.kdob.piq.question.application`: Contains application services that orchestrate business logic and handle use cases (e.g., `QuestionQueryService`, `TopicService`).
-- `com.kdob.piq.question.infrastructure`: Contains technical details (Adapters):
+- `com.kdob.piq.content.domain`: Contains core business logic, entities (`Question`, `Topic`), and repository interfaces (Ports). It is free from infrastructure dependencies.
+- `com.kdob.piq.content.application`: Contains application services that orchestrate business logic and handle use cases (e.g., `QuestionQueryService`, `TopicService`).
+- `com.kdob.piq.content.infrastructure`: Contains technical details (Adapters):
     - `persistence`: JPA implementations of repositories, entity mappings, and Liquibase scripts.
     - `web`: REST controllers, DTOs, and request/response mapping.
     - `config`: Spring Boot configurations (Security, JPA, JWT).

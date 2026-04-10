@@ -1,0 +1,16 @@
+package com.kdob.piq.content.domain.question
+
+import org.springframework.data.domain.Page
+import org.springframework.data.domain.Pageable
+
+interface QuestionQueryRepository {
+    fun findByCriteria(
+        topicKeys: Set<String>,
+        difficulties: Set<Difficulty>,
+        labels: Set<String>,
+        formats: Set<String>,
+        pageable: Pageable,
+        searchTerm: String? = null,
+        searchInAnswers: Boolean = false,
+    ): Page<Question>
+}
