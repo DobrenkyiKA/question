@@ -10,7 +10,7 @@ plugins {
 
 group = "com.kdob.piq"
 version = "0.0.1-SNAPSHOT"
-description = "question"
+description = "content"
 
 java {
     toolchain {
