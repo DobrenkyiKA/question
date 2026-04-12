@@ -9,9 +9,8 @@ import org.springframework.web.client.RestTemplate
 @Component
 class StorageServiceClient(
     private val restTemplate: RestTemplate,
-    @Value("\${storage.url}") private val baseUrl: String
+    @Value("\${storage.url:}") private val baseUrl: String
 ) {
-
     fun getVersions(): List<String> {
         val typeRef = object : ParameterizedTypeReference<List<String>>() {}
         return restTemplate.exchange("$baseUrl/versions/questions", HttpMethod.GET, null, typeRef).body ?: emptyList()
